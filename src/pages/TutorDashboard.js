@@ -19,8 +19,7 @@ function TutorDashboard() {
 
   const fetchBookings = async () => {
     try {
-      
-      const res = await axios.get("/api/bookings/tutor-bookings/", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/tutor-bookings/`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(res.data);
@@ -34,9 +33,8 @@ function TutorDashboard() {
 
   const updateStatus = async (bookingId, status) => {
     try {
-      // ✅ Removed localhost
       await axios.put(
-        `/api/bookings/${bookingId}/status/`,
+        `${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/status/`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );

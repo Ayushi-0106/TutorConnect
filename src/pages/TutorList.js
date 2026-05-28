@@ -25,8 +25,7 @@ function TutorList() {
       return;
     }
 
-    
-    axios.post("/api/bookings/", {
+    axios.post(`${process.env.REACT_APP_API_URL}/api/bookings/`, {
       tutor: tutorId,
       student_name: studentName
     })
@@ -41,8 +40,7 @@ function TutorList() {
   };
 
   useEffect(() => {
-    
-    axios.get("/api/tutors/")
+    axios.get(`${process.env.REACT_APP_API_URL}/api/tutors/`)
       .then((response) => {
         setTutors(response.data);
       })

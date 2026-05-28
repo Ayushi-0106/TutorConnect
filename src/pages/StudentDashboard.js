@@ -19,8 +19,7 @@ function StudentDashboard() {
     }
 
     try {
-      
-      const response = await axios.get('/api/bookings/student-bookings/', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/student-bookings/`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setBookings(response.data);
@@ -45,8 +44,7 @@ function StudentDashboard() {
   const cancelBooking = async (bookingId) => {
     if (window.confirm('Are you sure you want to cancel this booking?')) {
       try {
-        // ✅ Removed localhost
-        await axios.delete(`/api/bookings/${bookingId}/cancel/`, {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/cancel/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         toast.success('Booking cancelled successfully!');

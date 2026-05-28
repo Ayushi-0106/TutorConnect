@@ -18,8 +18,7 @@ function ReviewForm({ bookingId, tutorName, onClose, onSuccess }) {
     console.log("Submitting:", { booking: bookingId, rating, comment });
     
     try {
-      
-      const response = await axios.post('/api/reviews/create/',
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/reviews/create/`,
         { booking: bookingId, rating, comment },
         { headers: { Authorization: `Bearer ${token}` } }
       );

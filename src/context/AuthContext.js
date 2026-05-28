@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://tutorconnect-backend-17h0.onrender.com';
+axios.defaults.baseURL = 'https://tutorconnect-backend-l7h0.onrender.com';
 
 const AuthContext = createContext();
 
