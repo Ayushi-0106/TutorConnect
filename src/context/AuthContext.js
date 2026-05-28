@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.baseURL = 'https://tutorconnect-backend-17h0.onrender.com';
+
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -21,7 +23,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/auth/me/');
+      
+      const response = await axios.get('/api/auth/me/');
       setUser(response.data);
     } catch (error) {
       console.error(error);
@@ -33,7 +36,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/register/', userData);
+      // ✅ Removed localhost
+      const response = await axios.post('/api/auth/register/', userData);
       return { success: true, data: response.data };
     } catch (error) {
       return { success: false, error: error.response?.data };
@@ -42,7 +46,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login/', { username, password });
+      // ✅ Removed localhost
+      const response = await axios.post('/api/auth/login/', { username, password });
       const { access, refresh, user } = response.data;
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
@@ -64,18 +69,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-<AuthContext.Provider 
-  value={{ 
-    user,
-    token,
-    login,
-    register,
-    logout,
-    loading,
-    isAuthenticated: !!user
-  }}
->
-  {children}
-</AuthContext.Provider>
+    <AuthContext.Provider 
+      value={{ 
+        user,
+        token,
+        login,
+        register,
+        logout,
+        loading,
+        isAuthenticated: !!user
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import { FaChalkboardTeacher, FaUser, FaBookOpen, FaCalendarAlt, FaCheckCircle, FaTimesCircle, FaClock } from 'react-icons/fa';
 
@@ -18,12 +19,14 @@ function TutorDashboard() {
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/bookings/tutor-bookings/", {
+      
+      const res = await axios.get("/api/bookings/tutor-bookings/", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBookings(res.data);
     } catch (err) {
       console.log(err);
+      toast.error("Failed to fetch bookings");
     } finally {
       setLoading(false);
     }
@@ -31,16 +34,17 @@ function TutorDashboard() {
 
   const updateStatus = async (bookingId, status) => {
     try {
+      // ✅ Removed localhost
       await axios.put(
-        `http://127.0.0.1:8000/api/bookings/${bookingId}/status/`,
+        `/api/bookings/${bookingId}/status/`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // Refresh bookings list
+      toast.success(`Booking ${status} successfully!`);
       fetchBookings();
     } catch (err) {
       console.log(err);
-      alert("Failed to update status");
+      toast.error("Failed to update status");
     }
   };
 

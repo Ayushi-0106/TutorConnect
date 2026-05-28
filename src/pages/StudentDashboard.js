@@ -19,7 +19,8 @@ function StudentDashboard() {
     }
 
     try {
-      const response = await axios.get('http://localhost:8000/api/bookings/student-bookings/', {
+      
+      const response = await axios.get('/api/bookings/student-bookings/', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setBookings(response.data);
@@ -44,7 +45,8 @@ function StudentDashboard() {
   const cancelBooking = async (bookingId) => {
     if (window.confirm('Are you sure you want to cancel this booking?')) {
       try {
-        await axios.delete(`http://localhost:8000/api/bookings/${bookingId}/cancel/`, {
+        // ✅ Removed localhost
+        await axios.delete(`/api/bookings/${bookingId}/cancel/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         toast.success('Booking cancelled successfully!');
@@ -149,7 +151,7 @@ function StudentDashboard() {
                       </span>
                     </p>
 
-                    {/* Cancel Button - Sirf Pending Status Pe */}
+                    {/* Cancel Button  */}
                     {booking.status === 'pending' && (
                       <button
                         onClick={() => cancelBooking(booking.id)}
@@ -171,7 +173,7 @@ function StudentDashboard() {
                       </button>
                     )}
 
-                    {/* Contact Details - Sirf tab dikhe jab booking accepted ho */}
+                    {/* Contact Details  */}
                     {booking.status === 'accepted' && (
                       <div style={{
                         marginTop: '15px',

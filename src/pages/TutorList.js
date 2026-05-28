@@ -25,7 +25,8 @@ function TutorList() {
       return;
     }
 
-    axios.post("http://localhost:8000/api/bookings/", {
+    
+    axios.post("/api/bookings/", {
       tutor: tutorId,
       student_name: studentName
     })
@@ -40,7 +41,8 @@ function TutorList() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/tutors/")
+    
+    axios.get("/api/tutors/")
       .then((response) => {
         setTutors(response.data);
       })
@@ -60,7 +62,7 @@ function TutorList() {
         <FaChalkboardTeacher /> Find Your Perfect Tutor
       </h1>
 
-      {/* Search Section - Removed "Search by subject above" */}
+      {/* Search Section */}
       {search && (
         <div style={{ 
           background: '#f0f0f0', 
